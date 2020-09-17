@@ -1,0 +1,17 @@
+# Ignorar a pasta VSCODE
+.vscode/
+
+#Ignorar a pasta venv
+venv/
+
+# Para arquivos .exe
+*.exe
+
+# Para arquivos .log
+*.log
+
+# Para aquivos .zip
+*.zip
+
+
+

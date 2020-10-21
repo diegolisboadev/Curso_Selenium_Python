@@ -2,15 +2,15 @@
 from selenium.webdriver import Firefox
 from time import sleep
 
-browser = Firefox()
-browser.get("https://www.diariooficial.ma.gov.br/")
+browser = Firefox(executable_path='./geckodriver')
+browser.get("https://www.diariooficial.ma.gov.br")
 
 #Code
-sleep(5)
+# sleep(5)
 
 # Fechar modal Alert
-modal_close = browser.find_element_by_css_selector('a[role=button]')
-modal_close.click()
+# modal_close = browser.find_element_by_css_selector('a[role=button]')
+# modal_close.click()
 
 # Pegar Div e do Select
 sleep(5)
@@ -25,18 +25,27 @@ option_combo.click()
 
 # Set data in input
 input_data_ini = browser.find_element_by_xpath('//input[@name="formPesq:calendarInic_input"]')
-input_data_ini.send_keys('01/01/2020')
+input_data_ini.send_keys('01/10/2018')
 
 input_data_fim = browser.find_element_by_xpath('//input[@name="formPesq:calendarFim_input"]')
-input_data_fim.send_keys('16/09/2020')
+input_data_fim.send_keys('19/10/2020')
 
 # Set Input Campo Pesquisa
 input_pesquisa = browser.find_element_by_xpath('//input[@name="formPesq:inputTerm"]')
-input_pesquisa.send_keys('Lei 8.666/1993')
+input_pesquisa.send_keys('Segurança')
 
 # Input Button Click
-input_click = browser.find_element_by_xpath('//input[@name="formPesq:j_idt90"]')
-input_click.click()
+input_click = browser.find_element_by_xpath('//input[@name="formPesq:j_idt90"]').click()
+
+sleep(5)
+
+table = browser.find_element_by_xpath('//table[@role="grid"]')
+tbody = table.find_elements_by_xpath("//table[@role='grid']//td[@role='gridcell']")
+for t in tbody:
+    t_attr = t.get_attribute('href')
+    print(t_attr)
+    # print(t.text)
+
 
 
 

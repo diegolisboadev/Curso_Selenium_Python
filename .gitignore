@@ -13,5 +13,9 @@ venv/
 # Para aquivos .zip
 *.zip
 
+#Ignora Drivers
+chromedriver
+geckodriver
+
 
 

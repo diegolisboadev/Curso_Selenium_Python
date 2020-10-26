@@ -1,5 +1,6 @@
 
 from selenium.webdriver import Firefox
+from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 
 browser = Firefox(executable_path='./geckodriver')
@@ -38,13 +39,26 @@ input_pesquisa.send_keys('Segurança')
 input_click = browser.find_element_by_xpath('//input[@name="formPesq:j_idt90"]').click()
 
 sleep(5)
-
 table = browser.find_element_by_xpath('//table[@role="grid"]')
-tbody = table.find_elements_by_xpath("//table[@role='grid']//td[@role='gridcell']")
-for t in tbody:
-    t_attr = t.get_attribute('href')
-    print(t_attr)
-    # print(t.text)
+#th_span = table.find_element_by_css_selector('th[id="formPesq:tablePanelDados:j_idt102"] span[class="ui-column-title"]')
+# tr_tag = table.find_elements_by_xpath("//div[@class='ui-datatable-tablewrapper']//table//tbody[@class='ui-datatable-data ui-widget-content']//tr")
+
+# TODO Iterar de 8 em 8 para pegar somente o links com o TH fragmento
+a_link = browser.find_elements_by_css_selector("td[role='gridcell'] a[href='#']")
+for key, a in enumerate(a_link, 5):
+    print(key)
+
+'''if a_link[5].click():
+    # return all handles value of open browser window 
+    handles = browser.window_handles 
+    for i in handles: 
+        browser.switch_to.window(i)
+        print(browser.title)'''
+
+#ActionChains(browser).move_to_element(a).click(a).perform()
+# a.click()
+
+
 
 
 

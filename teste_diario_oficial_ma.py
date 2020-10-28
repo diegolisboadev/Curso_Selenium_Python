@@ -45,7 +45,7 @@ table = browser.find_element_by_xpath('//table[@role="grid"]')
 
 # TODO Iterar de 8 em 8 para pegar somente o links com o TH fragmento
 a_link = browser.find_elements_by_css_selector("td[role='gridcell'] a[href='#']")
-for key, a in enumerate(a_link, 5):
+for key, a in enumerate(a_link):
     print(key)
 
 '''if a_link[5].click():

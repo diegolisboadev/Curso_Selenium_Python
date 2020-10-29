@@ -2,6 +2,7 @@
 from selenium.webdriver import Firefox
 from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
+from pprint import pprint
 
 browser = Firefox(executable_path='./geckodriver')
 browser.get("https://www.diariooficial.ma.gov.br")
@@ -43,14 +44,17 @@ table = browser.find_element_by_xpath('//table[@role="grid"]')
 #th_span = table.find_element_by_css_selector('th[id="formPesq:tablePanelDados:j_idt102"] span[class="ui-column-title"]')
 # tr_tag = table.find_elements_by_xpath("//div[@class='ui-datatable-tablewrapper']//table//tbody[@class='ui-datatable-data ui-widget-content']//tr")
 
-# TODO Iterar de 8 em 8 para pegar somente o links com o TH fragmento
+# TODO Iterar de 6 em 6 para pegar somente o links com o TH fragmento (OK)
+# TODO primeiras keys do a fragmento 5, 11, 17 (OK)
+# TODO parsear pdf no navegador
 a_link = browser.find_elements_by_css_selector("td[role='gridcell'] a[href='#']")
-for key, a in enumerate(a_link):
-    print(key)
+list_fragmento = [a_int for a_int in range(5, len(a_link), 6)]
+#pprint(list_fragmento)
 
-'''if a_link[5].click():
+for k in list_fragmento:
+    a_link[k].click()
     # return all handles value of open browser window 
-    handles = browser.window_handles 
+    '''handles = browser.window_handles 
     for i in handles: 
         browser.switch_to.window(i)
         print(browser.title)'''

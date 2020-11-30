@@ -2,7 +2,7 @@
 from selenium.webdriver import Firefox
 from time import sleep
 
-browser = Firefox()
+browser = Firefox(executable_path='./geckodriver')
 
 url = "https://selenium.dunossauro.live/exercicio_05.html"
 browser.get(url)

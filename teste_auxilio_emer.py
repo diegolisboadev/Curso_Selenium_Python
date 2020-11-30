@@ -11,10 +11,10 @@ button_acom_solitacao = browser.find_element_by_class_name('secundario')
 button_acom_solitacao.click() 
 
 # Dados
-cpf = '05976728308'
-nome = 'Diego Lisboa Pires'
-data_nasc = '22071994'
-nome_mae = 'Rosidete Castro Lisboa'
+cpf = ''
+nome = ''
+data_nasc = ''
+nome_mae = ''
 
 sleep(3)
 input_cpf = browser.find_element_by_id('mat-input-0').send_keys(cpf)

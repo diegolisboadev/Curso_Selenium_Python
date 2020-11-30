@@ -3,7 +3,7 @@ from selenium.webdriver import Firefox
 from time import sleep
 from pprint import pprint
 
-browser = Firefox()
+browser = Firefox(executable_path='./geckodriver')
 
 url = 'http://selenium.dunossauro.live/aula_05_b.html'
 browser.get(url)

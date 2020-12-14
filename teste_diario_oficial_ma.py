@@ -8,11 +8,12 @@ browser = Firefox(executable_path='./geckodriver')
 browser.get("https://www.diariooficial.ma.gov.br")
 
 #Code
-# sleep(5)
+sleep(5)
 
 # Fechar modal Alert
-# modal_close = browser.find_element_by_css_selector('a[role=button]')
-# modal_close.click()
+modal_close = browser.find_element_by_css_selector('a[role=button]')
+if modal_close:
+    modal_close.click()
 
 # Pegar Div e do Select
 sleep(5)
@@ -37,7 +38,7 @@ input_pesquisa = browser.find_element_by_xpath('//input[@name="formPesq:inputTer
 input_pesquisa.send_keys('Segurança')
 
 # Input Button Click
-input_click = browser.find_element_by_xpath('//input[@name="formPesq:j_idt90"]').click()
+input_click = browser.find_element_by_xpath('//input[@name="formPesq:j_idt93"]').click()
 
 sleep(5)
 table = browser.find_element_by_xpath('//table[@role="grid"]')
@@ -49,18 +50,33 @@ table = browser.find_element_by_xpath('//table[@role="grid"]')
 # TODO parsear pdf no navegador
 a_link = browser.find_elements_by_css_selector("td[role='gridcell'] a[href='#']")
 list_fragmento = [a_int for a_int in range(5, len(a_link), 6)]
-#pprint(list_fragmento)
+# pprint(list_fragmento)
 
-for k in list_fragmento:
+for i, k in enumerate(list_fragmento):
+    pprint(f'{i} - {k}')
     a_link[k].click()
 
 # Leitura dos Dados dos PDFs
 sleep(5)
-pprint(browser.current_window_handle)
 
+#prints parent window title
+print("Parent window title: " + browser.title)
 
-#ActionChains(browser).move_to_element(a).click(a).perform()
-# a.click()
+#get current window handle
+p = browser.current_window_handle
+
+#get first child window
+chwd = browser.window_handles
+
+for w in chwd:
+#switch focus to child window
+    if(w!=p):
+        browser.switch_to.window(w)
+    break
+
+sleep(0.9)
+print("Child window title: " + browser.title)
+browser.quit()
 
 
 

@@ -6,38 +6,42 @@ from selenium.webdriver.support.events import (
     EventFiringWebDriver
 )
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from time import sleep
 from pprint import pprint
 
-# TODO já verificando o label antes do click - agora tenho que os itens depois do click e popular o label
+# TODO pegar o click durante o click e/ou preenchimento do input
 def preenche_form(wrapper, **values_inputs):
-    wrapper.find_element_by_css_selector('label[id^="l"]').click()
 
     for i, val in values_inputs.items():
-        wrapper.find_element_by_css_selector(f'input[name="{i}"]').send_keys(val)
-
-    # wrapper.find_element_by_css_selector('input[name="btn"]').click()
-
-    # clickLblBtnForm = wrapper.find_element_by_id('lbtn')
-    # ActionChains(wrapper).move_to_element(clickLblBtnForm).click(clickLblBtnForm).perform()
-
-    # clickBtnForm = wrapper.find_element_by_css_selector('input[id="btn"]')
-    # ActionChains(wrapper).move_to_element(clickBtnForm).click(clickBtnForm).perform()
-
+        wrapper.find_element_by_id(f'l{i}').click()
+        wrapper.find_element_by_name(f'{i}').send_keys(val)
+        # wrapper.find_element_by_name(f'{i}').click()
+    
+    sleep(5)
+    # wrapper.find_element_by_xpath('//input[@id=btn]').click()
+    #button = wrapper.find_element_by_id('btn')
+    #ActionChains(wrapper).move_to_element(button).click(button).perform()
 
 
 class Listener(AbstractEventListener):
     def before_click(self, elemento, webdriver):
-        if elemento.tag_name == 'label':
-            pprint(webdriver.find_element_by_id('lnome').text)
-            pprint(webdriver.find_element_by_id('lemail').text)
-            pprint(webdriver.find_element_by_id('lsenha').text)
+        print(f'Antes Click {elemento.text}')
     
     def after_click(self, elemento, webdriver):
+        print(f'Depois do Click {elemento.text}')
         if elemento.tag_name == 'input':
-            pprint(webdriver.find_element_by_id('lnome').text)
-            pprint(webdriver.find_element_by_id('lemail').text)
-            pprint(webdriver.find_element_by_id('lsenha').text)
+            print('Mudança Input ' + webdriver.find_element_by_xpath('//label[@id="lnome"]').text)
+            print('Mudança Input ' + webdriver.find_element_by_xpath('//label[@id="lemail"]').text)
+            print('Mudança Input ' + webdriver.find_element_by_xpath('//label[@id="lsenha"]').text)
+        
+    '''def before_change_value_of(self, elemento, webdriver):
+        if elemento.tag_name == 'input':
+            print('Mudança Input ' + webdriver.find_element_by_xpath('//label[@id="lnome"]').text)
+            print('Mudança Input ' + webdriver.find_element_by_xpath('//label[@id="lemail"]').text)
+            print('Mudança Input ' + webdriver.find_element_by_xpath('//label[@id="lsenha"]').text)'''
 
 
 browser = Firefox(executable_path='./geckodriver')
